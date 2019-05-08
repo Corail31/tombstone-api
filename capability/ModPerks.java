@@ -1,6 +1,6 @@
 package ovh.corail.tombstone.api.capability;
 
-import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
+import net.minecraftforge.registries.ObjectHolder;
 
 @ObjectHolder("tombstone")
 public class ModPerks {
@@ -13,4 +13,5 @@ public class ModPerks {
     public static final Perk bone_collector = null;
     public static final Perk memento_mori = null;
     public static final Perk disenchantment = null;
+    public static final Perk alchemist = null;
 }

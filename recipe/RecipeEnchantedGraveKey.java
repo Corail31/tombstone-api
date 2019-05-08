@@ -1,48 +1,48 @@
 package ovh.corail.tombstone.api.recipe;
 
 import net.minecraft.init.Items;
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
+import net.minecraftforge.registries.ObjectHolder;
 
-import javax.annotation.Nullable;
 import java.util.stream.IntStream;
 
-@SuppressWarnings({ "WeakerAccess", "unused" })
-public class RecipeEnchantedGraveKey extends ShapelessOreRecipe {
+@SuppressWarnings({ "WeakerAccess" })
+public class RecipeEnchantedGraveKey extends ShapelessRecipe {
     @ObjectHolder("tombstone:grave_key")
     public static final Item GRAVE_KEY = Items.AIR;
 
-    public RecipeEnchantedGraveKey() {
+    public RecipeEnchantedGraveKey(ResourceLocation rl) {
         // default recipe "tombstone:enchanted_grave_key" as example
-        this(null, "enderpearl");
+        this(rl, getAdditionalIngredients());
     }
 
-    public RecipeEnchantedGraveKey(@Nullable ResourceLocation group, Object... ingredients) {
-        super(group, setEnchant(new ItemStack(GRAVE_KEY), false), ingredients);
-        getIngredients().add(Ingredient.fromStacks(new ItemStack(GRAVE_KEY)));
+    private static NonNullList<Ingredient> getAdditionalIngredients() {
+        NonNullList<Ingredient> ingredients = NonNullList.create();
+        ingredients.add(Ingredient.fromStacks(new ItemStack(Items.ENDER_PEARL)));
+        return ingredients;
     }
 
-    public RecipeEnchantedGraveKey(@Nullable ResourceLocation group, NonNullList<Ingredient> ingredients) {
-        super(group, ingredients, setEnchant(new ItemStack(GRAVE_KEY), false));
+    public RecipeEnchantedGraveKey(ResourceLocation rl, NonNullList<Ingredient> ingredients) {
+        super(rl, "enchanted_grave_key", setEnchant(new ItemStack(GRAVE_KEY), false), ingredients);
         getIngredients().add(Ingredient.fromStacks(new ItemStack(GRAVE_KEY)));
     }
 
     @Override
-    public boolean matches(InventoryCrafting inv, World world) {
+    public boolean matches(IInventory inv, World world) {
         return GRAVE_KEY != Items.AIR && super.matches(inv, world);
     }
 
     @Override
-    public ItemStack getCraftingResult(InventoryCrafting inv) {
+    public ItemStack getCraftingResult(IInventory inv) {
         return IntStream.range(0, inv.getSizeInventory()).mapToObj(inv::getStackInSlot).filter(stack -> stack.getItem() == GRAVE_KEY).findFirst().map(stack -> setEnchant(stack.copy(), true)).orElse(ItemStack.EMPTY);
     }
 
@@ -54,18 +54,11 @@ public class RecipeEnchantedGraveKey extends ShapelessOreRecipe {
      */
     public static ItemStack setEnchant(ItemStack key, boolean checkCompound) {
         if (key.getItem() == GRAVE_KEY) {
-            NBTTagCompound nbt = key.getTagCompound();
-            if (nbt == null) {
-                if (checkCompound) {
-                    return ItemStack.EMPTY; // a key should always have a compound
-                }
-                nbt = new NBTTagCompound();
-                key.setTagCompound(nbt);
-            }
-            if (checkCompound && nbt.hasKey("enchant", Constants.NBT.TAG_BYTE) && nbt.getBoolean("enchant")) {
+            NBTTagCompound nbt = key.getOrCreateTag();
+            if (checkCompound && nbt.contains("enchant", Constants.NBT.TAG_BYTE) && nbt.getBoolean("enchant")) {
                 return ItemStack.EMPTY; // the key is already enchanted
             }
-            nbt.setBoolean("enchant", true);
+            nbt.putBoolean("enchant", true);
         }
         return key;
     }

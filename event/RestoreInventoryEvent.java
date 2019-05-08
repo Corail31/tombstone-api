@@ -2,7 +2,7 @@ package ovh.corail.tombstone.api.event;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.items.IItemHandler;
 
 /**

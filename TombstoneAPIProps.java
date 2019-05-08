@@ -1,15 +1,15 @@
 package ovh.corail.tombstone.api;
 
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
+import net.minecraftforge.fml.loading.FMLLoader;
+import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({ "WeakerAccess", "unused" })
 public class TombstoneAPIProps {
     public static final String OWNER = "tombstone";
     public static final boolean IS_OWNER_LOADED;
 
     static {
-        IS_OWNER_LOADED = Loader.instance().getActiveModList().stream().anyMatch(mod -> mod.getModId().equals(OWNER) && mod.getProcessedVersion().compareTo(new DefaultArtifactVersion("3.4.0")) >= 0);
+        IS_OWNER_LOADED = FMLLoader.getLoadingModList().getMods().stream().filter(mod -> mod.getModId().equals(OWNER)).findFirst().map(mod -> mod.getVersion().compareTo(new DefaultArtifactVersion("3.4.3")) >= 0).orElse(false);
     }
 
     public static final String API = "tombstone-api";

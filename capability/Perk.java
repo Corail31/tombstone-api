@@ -4,12 +4,12 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.registries.IForgeRegistryEntry.Impl;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 import ovh.corail.tombstone.api.TombstoneAPIProps;
 
-public abstract class Perk extends Impl<Perk> implements Comparable<Perk>, IStringSerializable {
+public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparable<Perk>, IStringSerializable {
     protected final String name;
     protected final ResourceLocation icon;
 
@@ -22,6 +22,7 @@ public abstract class Perk extends Impl<Perk> implements Comparable<Perk>, IStri
 
     public abstract boolean isDisabled();
 
+    @OnlyIn(Dist.CLIENT)
     public abstract String getTooltip(int level, int actualLevel, int levelWithBonus);
 
     public abstract int getCost(int level);
@@ -39,10 +40,10 @@ public abstract class Perk extends Impl<Perk> implements Comparable<Perk>, IStri
     }
 
     public String getTranslationKey() {
-        return TombstoneAPIProps.OWNER + ".perk." + name + ".name";
+        return TombstoneAPIProps.OWNER + ".perk." + this.name;
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public String getClientTranslation() {
         return I18n.format(getTranslationKey());
     }
@@ -53,12 +54,12 @@ public abstract class Perk extends Impl<Perk> implements Comparable<Perk>, IStri
 
     @Override
     public String toString() {
-        return name;
+        return this.name;
     }
 
     @Override
     public String getName() {
-        return name;
+        return this.name;
     }
 
     @Override
