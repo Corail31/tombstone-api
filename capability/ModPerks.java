@@ -4,14 +4,14 @@ import net.minecraftforge.registries.ObjectHolder;
 
 @ObjectHolder("tombstone")
 public class ModPerks {
-    public static final Perk ghostly_shape = null;
-    public static final Perk voodoo_poppet = null;
-    public static final Perk mastery_of_scrolls = null;
-    public static final Perk mastery_of_tablets = null;
-    public static final Perk lost_tablet = null;
-    public static final Perk grave_key = null;
-    public static final Perk bone_collector = null;
-    public static final Perk memento_mori = null;
-    public static final Perk disenchantment = null;
-    public static final Perk alchemist = null;
+    public static final Perk ghostly_shape = new DummyPerk();
+    public static final Perk voodoo_poppet = new DummyPerk();
+    public static final Perk mastery_of_scrolls = new DummyPerk();
+    public static final Perk mastery_of_tablets = new DummyPerk();
+    public static final Perk lost_tablet = new DummyPerk();
+    public static final Perk grave_key = new DummyPerk();
+    public static final Perk bone_collector = new DummyPerk();
+    public static final Perk memento_mori = new DummyPerk();
+    public static final Perk disenchantment = new DummyPerk();
+    public static final Perk alchemist = new DummyPerk();
 }

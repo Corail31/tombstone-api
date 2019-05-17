@@ -9,11 +9,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import ovh.corail.tombstone.api.TombstoneAPIProps;
 
+import javax.annotation.Nullable;
+
 public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparable<Perk>, IStringSerializable {
     protected final String name;
     protected final ResourceLocation icon;
 
-    public Perk(String name, ResourceLocation icon) {
+    public Perk(String name, @Nullable ResourceLocation icon) {
         this.name = name;
         this.icon = icon;
     }
@@ -35,8 +37,9 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
         return 0;
     }
 
+    @Nullable
     public ResourceLocation getIcon() {
-        return icon;
+        return this.icon;
     }
 
     public String getTranslationKey() {
@@ -64,13 +67,17 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
 
     @Override
     public boolean equals(Object object) {
-        assert getRegistryName() != null;
-        return object instanceof Perk && getRegistryName().equals(((Perk) object).getRegistryName());
+        ResourceLocation registryName = getRegistryName();
+        return registryName != null && object instanceof Perk && registryName.equals(((Perk) object).getRegistryName());
     }
 
     @Override
     public int compareTo(Perk perk) {
-        assert getRegistryName() != null && perk.getRegistryName() != null;
-        return getRegistryName().compareTo(perk.getRegistryName());
+        ResourceLocation registryName = getRegistryName();
+        ResourceLocation otherRegistryName = perk.getRegistryName();
+        if (registryName != null && otherRegistryName != null) {
+            return registryName.compareTo(otherRegistryName);
+        }
+        return registryName == otherRegistryName ? 0 : registryName == null ? -1 : 1;
     }
 }
