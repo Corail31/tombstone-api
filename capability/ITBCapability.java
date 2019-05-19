@@ -48,6 +48,8 @@ public interface ITBCapability extends INBTSerializable<NBTTagCompound> {
 
     ITBCapability setNextPray(long time);
 
+    boolean canResetPerks(EntityPlayer player);
+
     long getCooldownToResetPerks(EntityPlayer player);
 
     boolean resetPerksAndSync(EntityPlayerMP player);

@@ -23,7 +23,7 @@ public class RecipeEnchantedGraveKey extends ShapelessOreRecipe {
 
     public RecipeEnchantedGraveKey() {
         // default recipe "tombstone:enchanted_grave_key" as example
-        this(null, "enderpearl");
+        this(null, "ingredientEnchantedGraveKey");
     }
 
     public RecipeEnchantedGraveKey(@Nullable ResourceLocation group, Object... ingredients) {
