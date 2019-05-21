@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -15,10 +16,13 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import java.util.stream.IntStream;
 
+import static ovh.corail.tombstone.api.TombstoneAPIProps.OWNER;
+
 @SuppressWarnings({ "WeakerAccess" })
 public class RecipeEnchantedGraveKey extends ShapelessRecipe {
     @ObjectHolder("tombstone:grave_key")
     public static final Item GRAVE_KEY = Items.AIR;
+    private static final ItemTags.Wrapper ENCHANTED_GRAVE_KEY_INGREDIENTS = new ItemTags.Wrapper(new ResourceLocation(OWNER, "enchanted_grave_key_ingredients"));
 
     public RecipeEnchantedGraveKey(ResourceLocation rl) {
         // default recipe "tombstone:enchanted_grave_key" as example
@@ -27,7 +31,7 @@ public class RecipeEnchantedGraveKey extends ShapelessRecipe {
 
     private static NonNullList<Ingredient> getAdditionalIngredients() {
         NonNullList<Ingredient> ingredients = NonNullList.create();
-        ingredients.add(Ingredient.fromStacks(new ItemStack(Items.ENDER_PEARL)));
+        ingredients.add(Ingredient.fromTag(ENCHANTED_GRAVE_KEY_INGREDIENTS));
         return ingredients;
     }
 
