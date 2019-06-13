@@ -1,9 +1,9 @@
 package ovh.corail.tombstone.api.magic;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public class ModDamages {
     public static DamageSource BEYOND_THE_GRAVE = new TombstoneDamageSource("beyond_the_grave").setDamageBypassesArmor().setDamageIsAbsolute();
@@ -14,8 +14,8 @@ public class ModDamages {
         }
 
         @Override
-        public ITextComponent getDeathMessage(EntityLivingBase entity) {
-            return new TextComponentTranslation("tombstone.death." + this.damageType, entity.getDisplayName());
+        public ITextComponent getDeathMessage(LivingEntity entity) {
+            return new TranslationTextComponent("tombstone.death." + this.damageType, entity.getDisplayName());
         }
     }
 }

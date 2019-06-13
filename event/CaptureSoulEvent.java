@@ -1,7 +1,7 @@
 package ovh.corail.tombstone.api.event;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.eventbus.api.Cancelable;
 import net.minecraftforge.eventbus.api.Event;
 
@@ -10,19 +10,19 @@ import net.minecraftforge.eventbus.api.Event;
  */
 @Cancelable
 public class CaptureSoulEvent extends Event {
-    private final EntityPlayer player;
-    private final EntityLivingBase capturedEntity;
+    private final PlayerEntity player;
+    private final LivingEntity capturedEntity;
 
-    public CaptureSoulEvent(EntityPlayer player, EntityLivingBase capturedEntity) {
+    public CaptureSoulEvent(PlayerEntity player, LivingEntity capturedEntity) {
         this.player = player;
         this.capturedEntity = capturedEntity;
     }
 
-    public EntityPlayer getPlayer() {
+    public PlayerEntity getPlayer() {
         return this.player;
     }
 
-    public EntityLivingBase getCapturedEntity() {
+    public LivingEntity getCapturedEntity() {
         return this.capturedEntity;
     }
 }

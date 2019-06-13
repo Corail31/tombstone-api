@@ -1,28 +1,28 @@
 package ovh.corail.tombstone.api.capability;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 
 import javax.annotation.Nullable;
 import java.util.Map;
 
 @SuppressWarnings({ "UnusedReturnValue" })
-public interface ITBCapability extends INBTSerializable<NBTTagCompound> {
+public interface ITBCapability extends INBTSerializable<CompoundNBT> {
     long getKnowledge();
 
     ITBCapability setKnowledge(long points);
 
-    ITBCapability addKnowledgeAndSync(EntityPlayerMP player, long points);
+    ITBCapability addKnowledgeAndSync(ServerPlayerEntity player, long points);
 
-    ITBCapability removeKnowledgeAndSync(EntityPlayerMP player, long points);
+    ITBCapability removeKnowledgeAndSync(ServerPlayerEntity player, long points);
 
     long getKnowledgeForLevel(int level);
 
     long getKnowledgeToReachNextLevel(int level);
 
-    int getUsedPerkPoints(EntityPlayer player);
+    int getUsedPerkPoints(PlayerEntity player);
 
     int getTotalPerkPoints();
 
@@ -34,29 +34,29 @@ public interface ITBCapability extends INBTSerializable<NBTTagCompound> {
 
     boolean removePerk(Perk perk);
 
-    int getPerkLevel(EntityPlayer player, Perk perk);
+    int getPerkLevel(PlayerEntity player, Perk perk);
 
-    int getPerkLevelWithBonus(EntityPlayer player, @Nullable Perk perk);
+    int getPerkLevelWithBonus(PlayerEntity player, @Nullable Perk perk);
 
-    boolean canPray(EntityPlayer player);
+    boolean canPray(PlayerEntity player);
 
     long getNextPray();
 
-    int getMaxPrayTime(EntityPlayer player);
+    int getMaxPrayTime(PlayerEntity player);
 
-    ITBCapability resetNextPray(EntityPlayer player);
+    ITBCapability resetNextPray(PlayerEntity player);
 
     ITBCapability setNextPray(long time);
 
-    boolean canResetPerks(EntityPlayer player);
+    boolean canResetPerks(PlayerEntity player);
 
-    long getCooldownToResetPerks(EntityPlayer player);
+    long getCooldownToResetPerks(PlayerEntity player);
 
-    boolean resetPerksAndSync(EntityPlayerMP player);
+    boolean resetPerksAndSync(ServerPlayerEntity player);
 
     ITBCapability setNextResetPerks(long time);
 
     ITBCapability copyCapability(ITBCapability otherTBCapability);
 
-    ITBCapability syncAll(EntityPlayerMP player);
+    ITBCapability syncAll(ServerPlayerEntity player);
 }

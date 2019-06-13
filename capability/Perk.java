@@ -1,7 +1,7 @@
 package ovh.corail.tombstone.api.capability;
 
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -33,7 +33,7 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
         return false;
     }
 
-    public int getLevelBonus(EntityPlayer player) {
+    public int getLevelBonus(PlayerEntity player) {
         return 0;
     }
 
@@ -51,6 +51,7 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
         return I18n.format(getTranslationKey());
     }
 
+    @OnlyIn(Dist.CLIENT)
     public String getSpecialInfo(int levelWithBonus) {
         return "";
     }

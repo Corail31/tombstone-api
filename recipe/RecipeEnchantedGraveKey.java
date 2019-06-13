@@ -1,12 +1,12 @@
 package ovh.corail.tombstone.api.recipe;
 
-import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipe;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -41,12 +41,12 @@ public class RecipeEnchantedGraveKey extends ShapelessRecipe {
     }
 
     @Override
-    public boolean matches(IInventory inv, World world) {
+    public boolean matches(CraftingInventory inv, World world) {
         return GRAVE_KEY != Items.AIR && super.matches(inv, world);
     }
 
     @Override
-    public ItemStack getCraftingResult(IInventory inv) {
+    public ItemStack getCraftingResult(CraftingInventory inv) {
         return IntStream.range(0, inv.getSizeInventory()).mapToObj(inv::getStackInSlot).filter(stack -> stack.getItem() == GRAVE_KEY).findFirst().map(stack -> setEnchant(stack.copy(), true)).orElse(ItemStack.EMPTY);
     }
 
@@ -58,7 +58,7 @@ public class RecipeEnchantedGraveKey extends ShapelessRecipe {
      */
     public static ItemStack setEnchant(ItemStack key, boolean checkCompound) {
         if (key.getItem() == GRAVE_KEY) {
-            NBTTagCompound nbt = key.getOrCreateTag();
+            CompoundNBT nbt = key.getOrCreateTag();
             if (checkCompound && nbt.contains("enchant", Constants.NBT.TAG_BYTE) && nbt.getBoolean("enchant")) {
                 return ItemStack.EMPTY; // the key is already enchanted
             }
