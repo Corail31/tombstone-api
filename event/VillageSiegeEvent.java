@@ -5,9 +5,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.eventbus.api.Cancelable;
 import net.minecraftforge.eventbus.api.Event;
 
+@SuppressWarnings("WeakerAccess")
 public class VillageSiegeEvent extends Event {
 
-    private VillageSiegeEvent() {
+    public VillageSiegeEvent() {
     }
 
     /**
