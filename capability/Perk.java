@@ -24,6 +24,7 @@ public abstract class Perk extends Impl<Perk> implements Comparable<Perk>, IStri
 
     public abstract boolean isDisabled();
 
+    @SideOnly(Side.CLIENT)
     public abstract String getTooltip(int level, int actualLevel, int levelWithBonus);
 
     public abstract int getCost(int level);
@@ -50,6 +51,7 @@ public abstract class Perk extends Impl<Perk> implements Comparable<Perk>, IStri
         return I18n.format(getTranslationKey());
     }
 
+    @SideOnly(Side.CLIENT)
     public String getSpecialInfo(int levelWithBonus) {
         return "";
     }
