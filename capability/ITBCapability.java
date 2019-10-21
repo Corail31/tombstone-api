@@ -1,5 +1,6 @@
 package ovh.corail.tombstone.api.capability;
 
+import com.google.common.annotations.Beta;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
@@ -59,4 +60,31 @@ public interface ITBCapability extends INBTSerializable<NBTTagCompound> {
     ITBCapability copyCapability(ITBCapability otherTBCapability);
 
     ITBCapability syncAll(EntityPlayerMP player);
+
+    @Beta
+    ITBCapability increaseAlignment(int amount);
+
+    @Beta
+    ITBCapability decreaseAlignment(int amount);
+
+    @Beta
+    int getAlignmentValue();
+
+    @Beta
+    int getAlignmentMinValue();
+
+    @Beta
+    int getAlignmentMaxValue();
+
+    @Beta
+    int getAlignmentLevel();
+
+    @Beta
+    ITBCapability setAlignment(int value);
+
+    @Beta
+    ITBCapability addAlignmentAndSync(EntityPlayerMP player, int value);
+
+    @Beta
+    ITBCapability onAlignmentLevelChange(int oldAlignment, int newAlignement);
 }
