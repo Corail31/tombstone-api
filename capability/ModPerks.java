@@ -14,4 +14,5 @@ public class ModPerks {
     public static final Perk memento_mori = new DummyPerk();
     public static final Perk disenchanter = new DummyPerk();
     public static final Perk alchemist = new DummyPerk();
+    public static final Perk tomb_raider = new DummyPerk();
 }

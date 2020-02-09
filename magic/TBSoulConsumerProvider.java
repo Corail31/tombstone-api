@@ -16,11 +16,16 @@ import javax.annotation.Nullable;
 
 public class TBSoulConsumerProvider implements ICapabilityProvider {
     @CapabilityInject(ISoulConsumer.class)
-    public static final Capability<ISoulConsumer> CAP_SOUL_CONSUMER = null;
+    public static final Capability<ISoulConsumer> CAP_SOUL_CONSUMER = getNonNull();
     private final ISoulConsumer defaultCap;
 
     public TBSoulConsumerProvider(ISoulConsumer soulConsumer) {
         this.defaultCap = soulConsumer;
+    }
+
+    @SuppressWarnings("all")
+    private static <T> T getNonNull() {
+        return null;
     }
 
     @Override

@@ -39,7 +39,11 @@ public interface ITBCapability extends INBTSerializable<CompoundNBT> {
 
     int getPerkLevelWithBonus(PlayerEntity player, @Nullable Perk perk);
 
-    boolean canPray(PlayerEntity player);
+    default boolean canPray(PlayerEntity player) {
+        return getCooldownToPray(player) <= 0;
+    }
+
+    int getCooldownToPray(PlayerEntity player);
 
     long getNextPray();
 
