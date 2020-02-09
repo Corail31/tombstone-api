@@ -1,5 +1,9 @@
 package ovh.corail.tombstone.api.capability;
 
+import net.minecraft.entity.player.PlayerEntity;
+
+import javax.annotation.Nullable;
+
 public class DummyPerk extends Perk {
     DummyPerk() {
         super("dummy", null);
@@ -11,7 +15,7 @@ public class DummyPerk extends Perk {
     }
 
     @Override
-    public boolean isDisabled() {
+    public boolean isDisabled(@Nullable PlayerEntity player) {
         return true;
     }
 

@@ -22,7 +22,14 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
 
     public abstract int getLevelMax();
 
-    public abstract boolean isDisabled();
+    @Deprecated
+    public boolean isDisabled() {
+        return false;
+    }
+
+    public boolean isDisabled(@Nullable PlayerEntity player) {
+        return isDisabled();
+    }
 
     @OnlyIn(Dist.CLIENT)
     public abstract String getTooltip(int level, int actualLevel, int levelWithBonus);
