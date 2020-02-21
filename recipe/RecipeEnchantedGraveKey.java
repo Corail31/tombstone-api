@@ -42,7 +42,7 @@ public class RecipeEnchantedGraveKey extends ShapelessRecipe {
 
     @Override
     public boolean matches(CraftingInventory inv, World world) {
-        return GRAVE_KEY != Items.AIR && super.matches(inv, world);
+        return GRAVE_KEY != Items.AIR && ((IDisableable) GRAVE_KEY).isEnabled() && super.matches(inv, world);
     }
 
     @Override
