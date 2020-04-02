@@ -51,7 +51,7 @@ public interface ITBCapability extends INBTSerializable<CompoundNBT> {
 
     ITBCapability resetNextPray(PlayerEntity player);
 
-    ITBCapability setNextPray(long time);
+    ITBCapability setNextPray(long worldTime);
 
     boolean canResetPerks(PlayerEntity player);
 
@@ -59,11 +59,15 @@ public interface ITBCapability extends INBTSerializable<CompoundNBT> {
 
     boolean resetPerksAndSync(ServerPlayerEntity player);
 
-    ITBCapability setNextResetPerks(long time);
+    ITBCapability setNextResetPerks(long worldTime);
 
     ITBCapability copyCapability(ITBCapability otherTBCapability);
 
     ITBCapability syncAll(ServerPlayerEntity player);
+
+    ITBCapability setCooldownToRequestTeleport(long worldTime);
+
+    int getCooldownToRequestTeleport(ServerPlayerEntity player);
 
     @Beta
     ITBCapability increaseAlignment(int amount);
