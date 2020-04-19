@@ -11,21 +11,17 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
+import ovh.corail.tombstone.api.TombstoneAPIProps;
 
 import javax.annotation.Nullable;
 
 public class TBSoulConsumerProvider implements ICapabilityProvider {
     @CapabilityInject(ISoulConsumer.class)
-    public static final Capability<ISoulConsumer> CAP_SOUL_CONSUMER = getNonNull();
+    public static final Capability<ISoulConsumer> CAP_SOUL_CONSUMER = TombstoneAPIProps.getNonNull();
     private final ISoulConsumer defaultCap;
 
     public TBSoulConsumerProvider(ISoulConsumer soulConsumer) {
         this.defaultCap = soulConsumer;
-    }
-
-    @SuppressWarnings("all")
-    private static <T> T getNonNull() {
-        return null;
     }
 
     @Override

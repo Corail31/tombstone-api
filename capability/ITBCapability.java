@@ -5,6 +5,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
+import ovh.corail.tombstone.api.TombstoneAPIProps;
+import ovh.corail.tombstone.api.cooldown.CooldownType;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -39,35 +41,13 @@ public interface ITBCapability extends INBTSerializable<CompoundNBT> {
 
     int getPerkLevelWithBonus(PlayerEntity player, @Nullable Perk perk);
 
-    default boolean canPray(PlayerEntity player) {
-        return getCooldownToPray(player) <= 0;
-    }
-
-    int getCooldownToPray(PlayerEntity player);
-
-    long getNextPray();
-
-    int getMaxPrayTime(PlayerEntity player);
-
-    ITBCapability resetNextPray(PlayerEntity player);
-
-    ITBCapability setNextPray(long worldTime);
-
     boolean canResetPerks(PlayerEntity player);
 
-    long getCooldownToResetPerks(PlayerEntity player);
-
-    boolean resetPerksAndSync(ServerPlayerEntity player);
-
-    ITBCapability setNextResetPerks(long worldTime);
+    boolean resetPerks(ServerPlayerEntity player);
 
     ITBCapability copyCapability(ITBCapability otherTBCapability);
 
     ITBCapability syncAll(ServerPlayerEntity player);
-
-    ITBCapability setCooldownToRequestTeleport(long worldTime);
-
-    int getCooldownToRequestTeleport(ServerPlayerEntity player);
 
     @Beta
     ITBCapability increaseAlignment(int amount);
@@ -95,4 +75,37 @@ public interface ITBCapability extends INBTSerializable<CompoundNBT> {
 
     @Beta
     ITBCapability onAlignmentLevelChange(int oldAlignment, int newAlignement);
+
+    @Deprecated
+    default boolean canPray(PlayerEntity player) {
+        return !TombstoneAPIProps.COOLDOWN_HANDLER.hasCooldown(player, CooldownType.NEXT_PRAY);
+    }
+
+    @Deprecated
+    default int getCooldownToPray(PlayerEntity player) {
+        return TombstoneAPIProps.COOLDOWN_HANDLER.getCooldown(player, CooldownType.NEXT_PRAY);
+    }
+
+    @Deprecated
+    default int getMaxPrayTime(PlayerEntity player) {
+        return CooldownType.NEXT_PRAY.getMaxCooldown(player);
+    }
+
+    @Deprecated
+    default ITBCapability resetNextPray(PlayerEntity player) {
+        if (!player.world.isRemote) {
+            TombstoneAPIProps.COOLDOWN_HANDLER.resetCooldown((ServerPlayerEntity) player, CooldownType.NEXT_PRAY);
+        }
+        return this;
+    }
+
+    @Deprecated
+    default long getCooldownToResetPerks(PlayerEntity player) {
+        return TombstoneAPIProps.COOLDOWN_HANDLER.getCooldown(player, CooldownType.RESET_PERKS);
+    }
+
+    @Deprecated
+    default boolean resetPerksAndSync(ServerPlayerEntity player) {
+        return resetPerks(player);
+    }
 }
