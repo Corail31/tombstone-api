@@ -10,12 +10,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import ovh.corail.tombstone.api.TombstoneAPIProps;
 
 import javax.annotation.Nullable;
 
 public class TBSoulConsumerProvider implements ICapabilityProvider {
     @CapabilityInject(ISoulConsumer.class)
-    public static final Capability<ISoulConsumer> CAP_SOUL_CONSUMER = null;
+    public static final Capability<ISoulConsumer> CAP_SOUL_CONSUMER = TombstoneAPIProps.unsafeNullCast();
     private final ISoulConsumer defaultCap;
 
     public TBSoulConsumerProvider(ISoulConsumer soulConsumer) {

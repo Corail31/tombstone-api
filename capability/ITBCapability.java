@@ -39,23 +39,9 @@ public interface ITBCapability extends INBTSerializable<NBTTagCompound> {
 
     int getPerkLevelWithBonus(EntityPlayer player, @Nullable Perk perk);
 
-    boolean canPray(EntityPlayer player);
-
-    long getNextPray();
-
-    int getMaxPrayTime(EntityPlayer player);
-
-    ITBCapability resetNextPray(EntityPlayer player);
-
-    ITBCapability setNextPray(long time);
-
     boolean canResetPerks(EntityPlayer player);
 
-    long getCooldownToResetPerks(EntityPlayer player);
-
-    boolean resetPerksAndSync(EntityPlayerMP player);
-
-    ITBCapability setNextResetPerks(long time);
+    boolean resetPerks(EntityPlayerMP player);
 
     ITBCapability copyCapability(ITBCapability otherTBCapability);
 
@@ -86,5 +72,5 @@ public interface ITBCapability extends INBTSerializable<NBTTagCompound> {
     ITBCapability addAlignmentAndSync(EntityPlayerMP player, int value);
 
     @Beta
-    ITBCapability onAlignmentLevelChange(int oldAlignment, int newAlignement);
+    ITBCapability onAlignmentLevelChange(int oldAlignment, int newAlignment);
 }
