@@ -2,6 +2,7 @@ package ovh.corail.tombstone.api.magic;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -17,16 +18,16 @@ import javax.annotation.Nullable;
 
 public class TBSoulConsumerProvider implements ICapabilityProvider {
     @CapabilityInject(ISoulConsumer.class)
-    public static final Capability<ISoulConsumer> CAP_SOUL_CONSUMER = TombstoneAPIProps.getNonNull();
-    private final ISoulConsumer defaultCap;
+    public static final Capability<ISoulConsumer> CAP_SOUL_CONSUMER = TombstoneAPIProps.unsafeNullCast();
+    private final LazyOptional<ISoulConsumer> holderCap;
 
     public TBSoulConsumerProvider(ISoulConsumer soulConsumer) {
-        this.defaultCap = soulConsumer;
+        this.holderCap = LazyOptional.of(() -> soulConsumer);
     }
 
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-        return cap == CAP_SOUL_CONSUMER ? LazyOptional.of(() -> defaultCap).cast() : LazyOptional.empty();
+        return CAP_SOUL_CONSUMER.orEmpty(cap, this.holderCap);
     }
 
     public static ISoulConsumer getDefault() {
@@ -37,8 +38,8 @@ public class TBSoulConsumerProvider implements ICapabilityProvider {
             }
 
             @Override
-            public boolean setEnchant(World world, BlockPos gravePos, PlayerEntity player, ItemStack stack) {
-                return false;
+            public int setEnchant(World world, BlockPos gravePos, PlayerEntity player, ItemStack stack, int soulStrenght) {
+                return 0;
             }
 
             @Override
@@ -52,4 +53,16 @@ public class TBSoulConsumerProvider implements ICapabilityProvider {
             }
         };
     }
+
+     public static final Capability.IStorage<ISoulConsumer> NULL_STORAGE = new Capability.IStorage<ISoulConsumer>() {
+        @Override
+        @Nullable
+        public INBT writeNBT(Capability<ISoulConsumer> capability, ISoulConsumer instance, Direction side) {
+            return null;
+        }
+
+        @Override
+        public void readNBT(Capability<ISoulConsumer> capability, ISoulConsumer instance, Direction side, INBT nbt) {
+        }
+    };
 }

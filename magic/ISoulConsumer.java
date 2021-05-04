@@ -7,11 +7,11 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
 /**
- * This interface allows a player to interact a grave with an itemstack
+ * This capability interface allows a player to interact a grave with an itemstack
  */
 public interface ISoulConsumer {
     /**
-     * @param stack the stack implementing this interface
+     * @param stack the itemstack
      * @return return true if the stack is already enchanted
      */
     boolean isEnchanted(ItemStack stack);
@@ -22,10 +22,19 @@ public interface ISoulConsumer {
      * @param world the world of the grave
      * @param gravePos the position of the grave
      * @param player the player interacting
-     * @param stack the stack implementing this interface
-     * @return if the return is true, the grave's soul will be consumed
+     * @param stack the itemstack implementing this interface
+     * @param soulStrenght the strenght of the soul to be consumed
+     * @return return soul strenght to be consumed, 0 is a fail
      */
-    boolean setEnchant(World world, BlockPos gravePos, PlayerEntity player, ItemStack stack);
+    default int setEnchant(World world, BlockPos gravePos, PlayerEntity player, ItemStack stack, int soulStrenght) {
+        return setEnchant(world, gravePos, player, stack) ? 1 : 0;
+    }
+
+    @Deprecated
+    default boolean setEnchant(World world, BlockPos gravePos, PlayerEntity player, ItemStack stack) {
+        // TODO remove in 1.17
+        return false;
+    }
 
     /**
      * @param player the player interacting
@@ -42,8 +51,8 @@ public interface ISoulConsumer {
     /**
      * @param world the world of the grave
      * @param gravePos the position of the grave
-     * @param player the player interacting
-     * @param stack the stack implementing this interface
+     * @param player the player sneaking
+     * @param stack the itemstack
      */
     default void onSneakGrave(World world, BlockPos gravePos, PlayerEntity player, ItemStack stack) {
     }
@@ -51,9 +60,9 @@ public interface ISoulConsumer {
     /**
      * @param world the world of the grave
      * @param gravePos the position of the grave
-     * @param player the player sneaking
-     * @param stack the stack implementing this interface
-     * @return true if the stack can be enchanted
+     * @param player the player interacting
+     * @param stack the itemstack implementing this interface
+     * @return true if the itemstack can be enchanted
      */
     default boolean canEnchant(World world, BlockPos gravePos, PlayerEntity player, ItemStack stack) {
         return true;
