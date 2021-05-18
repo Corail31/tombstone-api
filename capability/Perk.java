@@ -22,7 +22,13 @@ public abstract class Perk extends Impl<Perk> implements Comparable<Perk>, IStri
 
     public abstract int getLevelMax();
 
-    public abstract boolean isDisabled();
+    public boolean isDisabled(@Nullable EntityPlayer player) {
+        return false;
+    }
+
+    public boolean isDisabled() {
+        return isDisabled(null);
+    }
 
     @SideOnly(Side.CLIENT)
     public abstract String getTooltip(int level, int actualLevel, int levelWithBonus);

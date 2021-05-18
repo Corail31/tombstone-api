@@ -38,7 +38,7 @@ public class RecipeEnchantedGraveKey extends ShapelessOreRecipe {
 
     @Override
     public boolean matches(InventoryCrafting inv, World world) {
-        return GRAVE_KEY != Items.AIR && super.matches(inv, world);
+        return GRAVE_KEY != Items.AIR && ((IDisableable) GRAVE_KEY).isEnabled() && super.matches(inv, world);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class RecipeEnchantedGraveKey extends ShapelessOreRecipe {
      * @return the result of this recipe, an enchanted key
      */
     public static ItemStack setEnchant(ItemStack key, boolean checkCompound) {
-        if (key.getItem() == GRAVE_KEY) {
+        if (key.getItem() == GRAVE_KEY && ((IDisableable) GRAVE_KEY).isEnabled()) {
             NBTTagCompound nbt = key.getTagCompound();
             if (nbt == null) {
                 if (checkCompound) {
