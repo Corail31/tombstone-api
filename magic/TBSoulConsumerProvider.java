@@ -26,8 +26,8 @@ public class TBSoulConsumerProvider implements ICapabilityProvider {
     }
 
     @Override
-    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-        return CAP_SOUL_CONSUMER.orEmpty(cap, this.holderCap);
+    public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction side) {
+        return CAP_SOUL_CONSUMER.orEmpty(capability, this.holderCap);
     }
 
     public static ISoulConsumer getDefault() {
