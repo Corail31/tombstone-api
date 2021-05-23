@@ -1,4 +1,4 @@
-package ovh.corail.tombstone.api.recipe;
+package ovh.corail.tombstone.api.item;
 
 import net.minecraft.item.ItemStack;
 

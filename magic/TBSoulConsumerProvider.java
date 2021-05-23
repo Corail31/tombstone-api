@@ -54,7 +54,7 @@ public class TBSoulConsumerProvider implements ICapabilityProvider {
         };
     }
 
-     public static final Capability.IStorage<ISoulConsumer> NULL_STORAGE = new Capability.IStorage<ISoulConsumer>() {
+    public static final Capability.IStorage<ISoulConsumer> NULL_STORAGE = new Capability.IStorage<ISoulConsumer>() {
         @Override
         @Nullable
         public INBT writeNBT(Capability<ISoulConsumer> capability, ISoulConsumer instance, Direction side) {

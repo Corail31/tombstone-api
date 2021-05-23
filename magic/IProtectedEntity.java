@@ -12,6 +12,7 @@ import net.minecraftforge.common.util.INBTSerializable;
 public interface IProtectedEntity extends INBTSerializable<CompoundNBT> {
     /**
      * set active or not the protection
+     *
      * @param entity entity affected
      * @param active protected if true
      */
@@ -19,12 +20,14 @@ public interface IProtectedEntity extends INBTSerializable<CompoundNBT> {
 
     /**
      * get if the protection is active
+     *
      * @return true if protected
      */
     boolean isActive();
 
     /**
      * provide a safe location to teleport
+     *
      * @return the location
      */
     GlobalPos getSafeLocation(LivingEntity entity);

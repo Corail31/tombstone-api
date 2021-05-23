@@ -11,7 +11,6 @@ import net.minecraftforge.common.util.NonNullSupplier;
 import ovh.corail.tombstone.api.TombstoneAPIProps;
 
 import javax.annotation.Nullable;
-
 import java.util.Optional;
 
 public class TBCapabilityProvider implements ICapabilitySerializable<CompoundNBT> {

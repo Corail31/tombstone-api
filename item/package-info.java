@@ -1,3 +1,3 @@
 @javax.annotation.ParametersAreNonnullByDefault
 @mcp.MethodsReturnNonnullByDefault
-package ovh.corail.tombstone.api.recipe;
+package ovh.corail.tombstone.api.item;
