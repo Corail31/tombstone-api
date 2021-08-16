@@ -2,13 +2,20 @@ package ovh.corail.tombstone.api.event;
 
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.eventbus.api.Cancelable;
 import net.minecraftforge.eventbus.api.Event;
 
 @SuppressWarnings("WeakerAccess")
 public class VillageSiegeEvent extends Event {
+    private final ServerWorld world;
 
-    public VillageSiegeEvent() {
+    public VillageSiegeEvent(ServerWorld world) {
+        this.world = world;
+    }
+
+    public ServerWorld getWorld() {
+        return this.world;
     }
 
     /**
@@ -18,13 +25,13 @@ public class VillageSiegeEvent extends Event {
     public static class Start extends VillageSiegeEvent {
         private final BlockPos spawnPos;
 
-        public Start(BlockPos spawnPos) {
-            super();
+        public Start(ServerWorld world, BlockPos spawnPos) {
+            super(world);
             this.spawnPos = spawnPos;
         }
 
         public BlockPos getSpawnPos() {
-            return spawnPos;
+            return this.spawnPos;
         }
     }
 
@@ -35,8 +42,8 @@ public class VillageSiegeEvent extends Event {
     public static class SpawnZombie extends VillageSiegeEvent {
         private final ZombieEntity entity;
 
-        public SpawnZombie(ZombieEntity entity) {
-            super();
+        public SpawnZombie(ServerWorld world, ZombieEntity entity) {
+            super(world);
             this.entity = entity;
         }
 

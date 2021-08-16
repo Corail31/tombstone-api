@@ -7,14 +7,15 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-import ovh.corail.tombstone.api.TombstoneAPIProps;
 
 import javax.annotation.Nullable;
+
+import static ovh.corail.tombstone.api.TombstoneAPIProps.OWNER;
 
 public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparable<Perk>, IStringSerializable {
     protected final String name;
     protected final ResourceLocation icon;
-    private ITextComponent translation;
+    private ITextComponent translation, description;
 
     public Perk(String name, @Nullable ResourceLocation icon) {
         this.name = name;
@@ -45,7 +46,7 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
     }
 
     public String getTranslationKey() {
-        return TombstoneAPIProps.OWNER + ".perk." + this.name;
+        return OWNER + ".perk." + this.name;
     }
 
     public ITextComponent getTranslation() {
@@ -53,6 +54,13 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
             this.translation = new TranslationTextComponent(getTranslationKey());
         }
         return this.translation;
+    }
+
+    public ITextComponent getDescription() {
+        if (this.description == null) {
+            this.description = new TranslationTextComponent(OWNER + ".perk." + this.name + ".desc");
+        }
+        return this.description;
     }
 
     public ITextComponent getSpecialInfo(int levelWithBonus) {
@@ -65,7 +73,7 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
     }
 
     @Override
-    public String getString() {
+    public String getSerializedName() {
         return this.name;
     }
 

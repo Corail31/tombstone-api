@@ -1,6 +1,7 @@
 package ovh.corail.tombstone.api.magic;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -26,7 +27,7 @@ public interface ISoulConsumer {
      * @param soulStrenght the strenght of the soul to be consumed
      * @return return soul strenght to be consumed, 0 is a fail
      */
-    default int setEnchant(World world, BlockPos gravePos, PlayerEntity player, ItemStack stack, int soulStrenght) {
+    default int setEnchant(World world, BlockPos gravePos, ServerPlayerEntity player, ItemStack stack, int soulStrenght) {
         return setEnchant(world, gravePos, player, stack) ? 1 : 0;
     }
 

@@ -9,7 +9,7 @@ import net.minecraftforge.common.util.INBTSerializable;
 import javax.annotation.Nullable;
 import java.util.Map;
 
-@SuppressWarnings({ "UnusedReturnValue" })
+@SuppressWarnings("UnusedReturnValue")
 public interface ITBCapability extends INBTSerializable<CompoundNBT> {
     long getKnowledge();
 
@@ -46,12 +46,6 @@ public interface ITBCapability extends INBTSerializable<CompoundNBT> {
     ITBCapability copyCapability(ITBCapability otherTBCapability);
 
     ITBCapability syncAll(ServerPlayerEntity player);
-
-    @Beta
-    ITBCapability increaseAlignment(int amount);
-
-    @Beta
-    ITBCapability decreaseAlignment(int amount);
 
     @Beta
     int getAlignmentValue();
