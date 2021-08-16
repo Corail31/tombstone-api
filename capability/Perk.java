@@ -1,21 +1,21 @@
 package ovh.corail.tombstone.api.capability;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
 import static ovh.corail.tombstone.api.TombstoneAPIProps.OWNER;
 
-public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparable<Perk>, IStringSerializable {
+public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparable<Perk>, StringRepresentable {
     protected final String name;
     protected final ResourceLocation icon;
-    private ITextComponent translation, description;
+    private Component translation, description;
 
     public Perk(String name, @Nullable ResourceLocation icon) {
         this.name = name;
@@ -24,11 +24,11 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
 
     public abstract int getLevelMax();
 
-    public boolean isDisabled(@Nullable PlayerEntity player) {
+    public boolean isDisabled(@Nullable Player player) {
         return false;
     }
 
-    public abstract ITextComponent getTooltip(int level, int actualLevel, int levelWithBonus);
+    public abstract Component getTooltip(int level, int actualLevel, int levelWithBonus);
 
     public abstract int getCost(int level);
 
@@ -36,7 +36,7 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
         return false;
     }
 
-    public int getLevelBonus(PlayerEntity player) {
+    public int getLevelBonus(Player player) {
         return 0;
     }
 
@@ -49,22 +49,22 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
         return OWNER + ".perk." + this.name;
     }
 
-    public ITextComponent getTranslation() {
+    public Component getTranslation() {
         if (this.translation == null) {
-            this.translation = new TranslationTextComponent(getTranslationKey());
+            this.translation = new TranslatableComponent(getTranslationKey());
         }
         return this.translation;
     }
 
-    public ITextComponent getDescription() {
+    public Component getDescription() {
         if (this.description == null) {
-            this.description = new TranslationTextComponent(OWNER + ".perk." + this.name + ".desc");
+            this.description = new TranslatableComponent(OWNER + ".perk." + this.name + ".desc");
         }
         return this.description;
     }
 
-    public ITextComponent getSpecialInfo(int levelWithBonus) {
-        return StringTextComponent.EMPTY;
+    public Component getSpecialInfo(int levelWithBonus) {
+        return TextComponent.EMPTY;
     }
 
     @Override

@@ -1,8 +1,8 @@
 package ovh.corail.tombstone.api.item;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
 
@@ -16,5 +16,5 @@ public interface IImpregnable {
     boolean isImpregnated(ItemStack stack);
 
     @Nullable
-    ITextComponent getTooltipDisplay(ItemStack stack);
+    Component getTooltipDisplay(ItemStack stack);
 }

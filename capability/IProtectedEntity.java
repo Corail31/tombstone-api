@@ -1,15 +1,15 @@
-package ovh.corail.tombstone.api.magic;
+package ovh.corail.tombstone.api.capability;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.math.GlobalPos;
+import net.minecraft.core.GlobalPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.util.INBTSerializable;
 
 /**
  * This capability interface allows to prevent the next death of an entity
  * by default, only abstract villager & minecolonies citizen have this capability
  */
-public interface IProtectedEntity extends INBTSerializable<CompoundNBT> {
+public interface IProtectedEntity extends INBTSerializable<CompoundTag> {
     /**
      * set active or not the protection
      *

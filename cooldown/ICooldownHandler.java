@@ -1,18 +1,18 @@
 package ovh.corail.tombstone.api.cooldown;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public interface ICooldownHandler {
-    int getCooldown(PlayerEntity player, CooldownType type);
+    int getCooldown(Player player, CooldownType type);
 
-    boolean hasCooldown(PlayerEntity player, CooldownType type);
+    boolean hasCooldown(Player player, CooldownType type);
 
-    int resetCooldown(ServerPlayerEntity player, CooldownType type);
+    int resetCooldown(ServerPlayer player, CooldownType type);
 
-    int setCooldown(ServerPlayerEntity player, CooldownType type, int time);
+    int setCooldown(ServerPlayer player, CooldownType type, int time);
 
     @OnlyIn(Dist.CLIENT)
     int getCooldown(CooldownType type);

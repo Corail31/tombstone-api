@@ -1,70 +1,57 @@
 package ovh.corail.tombstone.api.capability;
 
-import com.google.common.annotations.Beta;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.util.INBTSerializable;
 
 import javax.annotation.Nullable;
 import java.util.Map;
 
-@SuppressWarnings("UnusedReturnValue")
-public interface ITBCapability extends INBTSerializable<CompoundNBT> {
-    long getKnowledge();
+public interface ITBCapability extends INBTSerializable<CompoundTag> {
+    int getKnowledge();
 
-    ITBCapability setKnowledge(long points);
+    void setKnowledge(int points);
 
-    ITBCapability addKnowledgeAndSync(ServerPlayerEntity player, long points);
+    void reward(ServerPlayer player, int knowledge, int alignment);
 
-    ITBCapability removeKnowledgeAndSync(ServerPlayerEntity player, long points);
+    void loseKnowledge(ServerPlayer player, int points);
 
-    long getKnowledgeForLevel(int level);
+    int getKnowledgeForLevel(int level);
 
-    long getKnowledgeToReachNextLevel(int level);
+    int getKnowledgeToReachNextLevel(int level);
 
-    int getUsedPerkPoints(PlayerEntity player);
+    void setAlignment(int value);
+
+    int getAlignmentValue();
+
+    int getAlignmentMinValue();
+
+    int getAlignmentMaxValue();
+
+    int getAlignmentLevel();
+
+    void onAlignmentLevelChange(int oldAlignment, int newAlignment);
+
+    int getUsedPerkPoints(Player player);
 
     int getTotalPerkPoints();
 
     Map<Perk, Integer> getPerks();
 
-    ITBCapability setPerks(Map<Perk, Integer> perks);
+    void setPerks(Map<Perk, Integer> perks);
 
-    ITBCapability setPerk(Perk perk, int level);
+    void setPerk(Perk perk, int level);
 
-    boolean removePerk(Perk perk);
+    void removePerk(Perk perk);
 
-    int getPerkLevel(PlayerEntity player, Perk perk);
+    int getPerkLevel(Player player, Perk perk);
 
-    int getPerkLevelWithBonus(PlayerEntity player, @Nullable Perk perk);
+    int getPerkLevelWithBonus(Player player, @Nullable Perk perk);
 
-    boolean canResetPerks(PlayerEntity player);
+    boolean canResetPerks(Player player);
 
-    boolean resetPerks(ServerPlayerEntity player);
+    boolean resetPerks(ServerPlayer player);
 
-    ITBCapability copyCapability(ITBCapability otherTBCapability);
-
-    ITBCapability syncAll(ServerPlayerEntity player);
-
-    @Beta
-    int getAlignmentValue();
-
-    @Beta
-    int getAlignmentMinValue();
-
-    @Beta
-    int getAlignmentMaxValue();
-
-    @Beta
-    int getAlignmentLevel();
-
-    @Beta
-    ITBCapability setAlignment(int value);
-
-    @Beta
-    ITBCapability addAlignmentAndSync(ServerPlayerEntity player, int value);
-
-    @Beta
-    ITBCapability onAlignmentLevelChange(int oldAlignment, int newAlignment);
+    void syncAll(ServerPlayer player);
 }

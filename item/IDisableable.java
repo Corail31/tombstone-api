@@ -1,6 +1,6 @@
 package ovh.corail.tombstone.api.item;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public interface IDisableable {
     boolean isEnabled();

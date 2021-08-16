@@ -1,19 +1,19 @@
 package ovh.corail.tombstone.api.event;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.eventbus.api.Event;
 
 @SuppressWarnings({ "WeakerAccess", "unused" })
 public class PhantomSpawnerEvent extends Event {
-    private final PlayerEntity player;
+    private final Player player;
     protected int timeForCheck;
 
-    public PhantomSpawnerEvent(PlayerEntity player, int timeForCheck) {
+    public PhantomSpawnerEvent(Player player, int timeForCheck) {
         this.player = player;
         this.timeForCheck = timeForCheck;
     }
 
-    public PlayerEntity getPlayer() {
+    public Player getPlayer() {
         return this.player;
     }
 
@@ -23,7 +23,7 @@ public class PhantomSpawnerEvent extends Event {
 
     public static class TimeForCheck extends PhantomSpawnerEvent {
 
-        public TimeForCheck(PlayerEntity player, int timeForCheck) {
+        public TimeForCheck(Player player, int timeForCheck) {
             super(player, timeForCheck);
         }
 
@@ -36,7 +36,7 @@ public class PhantomSpawnerEvent extends Event {
     public static class CheckPhantomSpawn extends PhantomSpawnerEvent {
         private final int timeSinceRest;
 
-        public CheckPhantomSpawn(PlayerEntity player, int timeForCheck, int timeSinceRest) {
+        public CheckPhantomSpawn(Player player, int timeForCheck, int timeSinceRest) {
             super(player, timeForCheck);
             this.timeSinceRest = timeSinceRest;
         }

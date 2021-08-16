@@ -1,7 +1,7 @@
 package ovh.corail.tombstone.api.event;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.items.IItemHandler;
 
@@ -9,13 +9,13 @@ import net.minecraftforge.items.IItemHandler;
  * Called when recovering items from a grave and allowing to auto-equip custom slots (not cancelable)
  */
 public class RestoreInventoryEvent extends Event {
-    private final PlayerEntity player;
+    private final Player player;
     private final BlockPos gravePos;
     private final IItemHandler inventory;
     private final String ownerName;
     private final long ownerDeathTime;
 
-    public RestoreInventoryEvent(PlayerEntity player, BlockPos gravePos, IItemHandler inventory, String ownerName, long ownerDeathTime) {
+    public RestoreInventoryEvent(Player player, BlockPos gravePos, IItemHandler inventory, String ownerName, long ownerDeathTime) {
         this.player = player;
         this.gravePos = gravePos;
         this.inventory = inventory;
@@ -23,7 +23,7 @@ public class RestoreInventoryEvent extends Event {
         this.ownerDeathTime = ownerDeathTime;
     }
 
-    public PlayerEntity getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 
