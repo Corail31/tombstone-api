@@ -16,5 +16,6 @@ public class ModPerks {
     public static final Perk memento_mori = unsafeNullCast();
     public static final Perk disenchanter = unsafeNullCast();
     public static final Perk alchemist = unsafeNullCast();
-    public static final Perk tomb_raider = unsafeNullCast();
+    public static final Perk shadow_walker = unsafeNullCast();
+    public static final Perk concentration = unsafeNullCast();
 }

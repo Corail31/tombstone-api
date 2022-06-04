@@ -1,6 +1,7 @@
 package ovh.corail.tombstone.api.magic;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -25,7 +26,14 @@ public interface ISoulConsumer {
      * @param stack the stack implementing this interface
      * @return if the return is true, the grave's soul will be consumed
      */
-    boolean setEnchant(World world, BlockPos gravePos, EntityPlayer player, ItemStack stack);
+    @Deprecated
+    default boolean setEnchant(World world, BlockPos gravePos, EntityPlayer player, ItemStack stack) {
+        return false;
+    }
+
+    default int setEnchant(World world, BlockPos gravePos, EntityPlayerMP player, ItemStack stack, boolean hasStrongSoul) {
+        return setEnchant(world, gravePos, player, stack) ? 1 : 0;
+    }
 
     /**
      * @param player the player interacting
