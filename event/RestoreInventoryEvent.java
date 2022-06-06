@@ -8,7 +8,7 @@ import net.minecraftforge.items.IItemHandler;
 /**
  * Called when recovering items from a grave and allowing to auto-equip custom slots (not cancelable)
  */
-public class RestoreInventoryEvent extends Event {
+public final class RestoreInventoryEvent extends Event {
     private final Player player;
     private final BlockPos gravePos;
     private final IItemHandler inventory;

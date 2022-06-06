@@ -9,7 +9,7 @@ import net.minecraftforge.eventbus.api.Event;
  * Called when a creature is going to be imprisoned by a player
  */
 @Cancelable
-public class CaptureSoulEvent extends Event {
+public final class CaptureSoulEvent extends Event {
     private final Player player;
     private final LivingEntity capturedEntity;
 

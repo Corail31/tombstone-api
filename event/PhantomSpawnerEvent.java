@@ -21,7 +21,7 @@ public class PhantomSpawnerEvent extends Event {
         return this.timeForCheck;
     }
 
-    public static class TimeForCheck extends PhantomSpawnerEvent {
+    public static final class TimeForCheck extends PhantomSpawnerEvent {
 
         public TimeForCheck(Player player, int timeForCheck) {
             super(player, timeForCheck);
@@ -33,7 +33,7 @@ public class PhantomSpawnerEvent extends Event {
     }
 
     @HasResult
-    public static class CheckPhantomSpawn extends PhantomSpawnerEvent {
+    public static final class CheckPhantomSpawn extends PhantomSpawnerEvent {
         private final int timeSinceRest;
 
         public CheckPhantomSpawn(Player player, int timeForCheck, int timeSinceRest) {

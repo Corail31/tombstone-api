@@ -19,8 +19,6 @@ public interface ITBCapability extends INBTSerializable<CompoundTag> {
 
     int getKnowledgeForLevel(int level);
 
-    int getKnowledgeToReachNextLevel(int level);
-
     void setAlignment(int value);
 
     int getAlignmentValue();

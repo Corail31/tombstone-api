@@ -10,6 +10,8 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
+import java.util.Objects;
+
 import static ovh.corail.tombstone.api.TombstoneAPIProps.OWNER;
 
 public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparable<Perk>, StringRepresentable {
@@ -17,7 +19,7 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
     protected final ResourceLocation icon;
     private Component translation, description;
 
-    public Perk(String name, @Nullable ResourceLocation icon) {
+    public Perk(String name, ResourceLocation icon) {
         this.name = name;
         this.icon = icon;
     }
@@ -30,7 +32,9 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
 
     public abstract Component getTooltip(int level, int actualLevel, int levelWithBonus);
 
-    public abstract int getCost(int level);
+    public int getCost(int level) {
+        return level > 0 ? 1 : 0;
+    }
 
     public boolean isEncrypted() {
         return false;
@@ -40,7 +44,6 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
         return 0;
     }
 
-    @Nullable
     public ResourceLocation getIcon() {
         return this.icon;
     }
@@ -68,28 +71,22 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
     }
 
     @Override
-    public String toString() {
-        return this.name;
-    }
-
-    @Override
     public String getSerializedName() {
         return this.name;
     }
 
     @Override
-    public boolean equals(Object object) {
-        ResourceLocation registryName = getRegistryName();
-        return registryName != null && object instanceof Perk && registryName.equals(((Perk) object).getRegistryName());
+    public int compareTo(Perk perk) {
+        return this.name.compareTo(perk.name);
     }
 
     @Override
-    public int compareTo(Perk perk) {
-        ResourceLocation registryName = getRegistryName();
-        ResourceLocation otherRegistryName = perk.getRegistryName();
-        if (registryName != null && otherRegistryName != null) {
-            return registryName.compareTo(otherRegistryName);
-        }
-        return registryName == otherRegistryName ? 0 : registryName == null ? -1 : 1;
+    public boolean equals(Object o) {
+        return this == o || (o != null && getClass() == o.getClass() && this.name.equals(((Perk) o).name));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.name);
     }
 }
