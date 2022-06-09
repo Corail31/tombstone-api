@@ -1,20 +1,17 @@
 package ovh.corail.tombstone.api.capability;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
 import static ovh.corail.tombstone.api.TombstoneAPIProps.OWNER;
 
-public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparable<Perk>, StringRepresentable {
+public abstract class Perk implements Comparable<Perk>, StringRepresentable {
     protected final String name;
     protected final ResourceLocation icon;
     private Component translation, description;
@@ -54,20 +51,20 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
 
     public Component getTranslation() {
         if (this.translation == null) {
-            this.translation = new TranslatableComponent(getTranslationKey());
+            this.translation = Component.translatable(getTranslationKey());
         }
         return this.translation;
     }
 
     public Component getDescription() {
         if (this.description == null) {
-            this.description = new TranslatableComponent(OWNER + ".perk." + this.name + ".desc");
+            this.description = Component.translatable(OWNER + ".perk." + this.name + ".desc");
         }
         return this.description;
     }
 
     public Component getSpecialInfo(int levelWithBonus) {
-        return TextComponent.EMPTY;
+        return Component.empty();
     }
 
     @Override

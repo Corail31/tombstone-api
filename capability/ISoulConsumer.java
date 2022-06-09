@@ -2,7 +2,6 @@ package ovh.corail.tombstone.api.capability;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -85,6 +84,6 @@ public interface ISoulConsumer {
         }
     }
 
-    Component MESSAGE_ENCHANT_ITEM_SUCCESS = new TranslatableComponent("tombstone.message.enchant_item.success");
-    Component MESSAGE_ENCHANT_ITEM_FAILED = new TranslatableComponent("tombstone.message.enchant_item.failed");
+    Component MESSAGE_ENCHANT_ITEM_SUCCESS = Component.translatable("tombstone.message.enchant_item.success");
+    Component MESSAGE_ENCHANT_ITEM_FAILED = Component.translatable("tombstone.message.enchant_item.failed");
 }
