@@ -7,6 +7,8 @@ import net.minecraft.world.entity.player.Player;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 import static ovh.corail.tombstone.api.TombstoneAPIProps.OWNER;
@@ -14,7 +16,7 @@ import static ovh.corail.tombstone.api.TombstoneAPIProps.OWNER;
 public abstract class Perk implements Comparable<Perk>, StringRepresentable {
     protected final String name;
     protected final ResourceLocation icon;
-    private Component translation, description;
+    protected Component translation, description;
 
     public Perk(String name, ResourceLocation icon) {
         this.name = name;
@@ -27,14 +29,8 @@ public abstract class Perk implements Comparable<Perk>, StringRepresentable {
         return false;
     }
 
-    public abstract Component getTooltip(int level, int actualLevel, int levelWithBonus);
-
     public int getCost(int level) {
         return level > 0 ? 1 : 0;
-    }
-
-    public boolean isEncrypted() {
-        return false;
     }
 
     public int getLevelBonus(Player player) {
@@ -45,7 +41,7 @@ public abstract class Perk implements Comparable<Perk>, StringRepresentable {
         return this.icon;
     }
 
-    public String getTranslationKey() {
+    public final String getTranslationKey() {
         return OWNER + ".perk." + this.name;
     }
 
@@ -58,13 +54,17 @@ public abstract class Perk implements Comparable<Perk>, StringRepresentable {
 
     public Component getDescription() {
         if (this.description == null) {
-            this.description = Component.translatable(OWNER + ".perk." + this.name + ".desc");
+            this.description = Component.translatable(getTranslationKey() + ".desc");
         }
         return this.description;
     }
 
-    public Component getSpecialInfo(int levelWithBonus) {
-        return Component.empty();
+    public List<Component> getCurrentBonusInfo(int level) {
+        return Collections.emptyList();
+    }
+
+    public List<Component> getNextBonusInfo(int nextLevel) {
+        return getCurrentBonusInfo(nextLevel);
     }
 
     @Override

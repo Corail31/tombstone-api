@@ -30,6 +30,13 @@ public interface ISoulConsumer {
     ConsumeResult setEnchant(Level level, BlockPos gravePos, ServerPlayer player, ItemStack stack, int soulStrength);
 
     /**
+     * @return return if the offhand is used to enchant (mainhand being the default)
+     */
+    default boolean isUsingOffhandToEnchant() {
+        return false;
+    }
+
+    /**
      * @param level the world of the grave
      * @param gravePos the position of the grave
      * @param player the player sneaking
