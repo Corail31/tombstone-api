@@ -5,7 +5,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import java.util.function.Function;
 
 public enum CooldownType {
-    NEXT_PRAY(true), RESET_PERKS(true), TELEPORT_DEATH, TELEPORT_BIND, REQUEST_TELEPORT, TOMB_RAIDING;
+    NEXT_PRAY(true), RESET_PERKS(true), TELEPORT_DEATH, TELEPORT_BIND, REQUEST_TELEPORT;
     private final boolean isSync;
     private Function<PlayerEntity, Integer> maxCooldown = player -> 0; // set on init
 

@@ -1,4 +1,4 @@
-package ovh.corail.tombstone.api.magic;
+package ovh.corail.tombstone.api.capability;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;

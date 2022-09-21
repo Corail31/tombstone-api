@@ -4,20 +4,23 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 import static ovh.corail.tombstone.api.TombstoneAPIProps.OWNER;
 
 public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparable<Perk>, IStringSerializable {
     protected final String name;
     protected final ResourceLocation icon;
-    private ITextComponent translation, description;
+    protected ITextComponent translation, description;
 
-    public Perk(String name, @Nullable ResourceLocation icon) {
+    public Perk(String name, ResourceLocation icon) {
         this.name = name;
         this.icon = icon;
     }
@@ -28,24 +31,19 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
         return false;
     }
 
-    public abstract ITextComponent getTooltip(int level, int actualLevel, int levelWithBonus);
-
-    public abstract int getCost(int level);
-
-    public boolean isEncrypted() {
-        return false;
+    public int getCost(int level) {
+        return level > 0 ? 1 : 0;
     }
 
     public int getLevelBonus(PlayerEntity player) {
         return 0;
     }
 
-    @Nullable
     public ResourceLocation getIcon() {
         return this.icon;
     }
 
-    public String getTranslationKey() {
+    public final String getTranslationKey() {
         return OWNER + ".perk." + this.name;
     }
 
@@ -63,8 +61,12 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
         return this.description;
     }
 
-    public ITextComponent getSpecialInfo(int levelWithBonus) {
-        return StringTextComponent.EMPTY;
+    public List<ITextComponent> getCurrentBonusInfo(int level) {
+        return Collections.emptyList();
+    }
+
+    public List<ITextComponent> getNextBonusInfo(int nextLevel) {
+        return getCurrentBonusInfo(nextLevel);
     }
 
     @Override
@@ -78,18 +80,17 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
     }
 
     @Override
-    public boolean equals(Object object) {
-        ResourceLocation registryName = getRegistryName();
-        return registryName != null && object instanceof Perk && registryName.equals(((Perk) object).getRegistryName());
+    public int compareTo(Perk perk) {
+        return this.name.compareTo(perk.name);
     }
 
     @Override
-    public int compareTo(Perk perk) {
-        ResourceLocation registryName = getRegistryName();
-        ResourceLocation otherRegistryName = perk.getRegistryName();
-        if (registryName != null && otherRegistryName != null) {
-            return registryName.compareTo(otherRegistryName);
-        }
-        return registryName == otherRegistryName ? 0 : registryName == null ? -1 : 1;
+    public boolean equals(Object o) {
+        return this == o || (o != null && getClass() == o.getClass() && this.name.equals(((Perk) o).name));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.name);
     }
 }

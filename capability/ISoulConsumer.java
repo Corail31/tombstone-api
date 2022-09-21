@@ -1,4 +1,4 @@
-package ovh.corail.tombstone.api.magic;
+package ovh.corail.tombstone.api.capability;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -34,6 +34,13 @@ public interface ISoulConsumer {
     @Deprecated
     default boolean setEnchant(World world, BlockPos gravePos, PlayerEntity player, ItemStack stack) {
         // TODO remove in 1.17
+        return false;
+    }
+
+    /**
+     * @return return if the offhand is used to enchant (mainhand being the default)
+     */
+    default boolean isUsingOffhandToEnchant() {
         return false;
     }
 
