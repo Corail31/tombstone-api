@@ -1,7 +1,6 @@
 package ovh.corail.tombstone.api.capability;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
@@ -10,6 +9,8 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 import static ovh.corail.tombstone.api.TombstoneAPIProps.OWNER;
@@ -17,7 +18,7 @@ import static ovh.corail.tombstone.api.TombstoneAPIProps.OWNER;
 public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparable<Perk>, StringRepresentable {
     protected final String name;
     protected final ResourceLocation icon;
-    private Component translation, description;
+    protected Component translation, description;
 
     public Perk(String name, ResourceLocation icon) {
         this.name = name;
@@ -30,14 +31,8 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
         return false;
     }
 
-    public abstract Component getTooltip(int level, int actualLevel, int levelWithBonus);
-
     public int getCost(int level) {
         return level > 0 ? 1 : 0;
-    }
-
-    public boolean isEncrypted() {
-        return false;
     }
 
     public int getLevelBonus(Player player) {
@@ -48,7 +43,7 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
         return this.icon;
     }
 
-    public String getTranslationKey() {
+    public final String getTranslationKey() {
         return OWNER + ".perk." + this.name;
     }
 
@@ -66,8 +61,12 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
         return this.description;
     }
 
-    public Component getSpecialInfo(int levelWithBonus) {
-        return TextComponent.EMPTY;
+    public List<Component> getCurrentBonusInfo(int level) {
+        return Collections.emptyList();
+    }
+
+    public List<Component> getNextBonusInfo(int nextLevel) {
+        return getCurrentBonusInfo(nextLevel);
     }
 
     @Override
