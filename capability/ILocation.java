@@ -1,4 +1,4 @@
-package ovh.corail.tombstone.api.magic;
+package ovh.corail.tombstone.api.capability;
 
 import net.minecraft.util.math.BlockPos;
 

@@ -1,15 +1,16 @@
 package ovh.corail.tombstone.api.capability;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.registries.IForgeRegistryEntry.Impl;
 
 import javax.annotation.Nullable;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 import static ovh.corail.tombstone.api.TombstoneAPIProps.OWNER;
@@ -17,6 +18,7 @@ import static ovh.corail.tombstone.api.TombstoneAPIProps.OWNER;
 public abstract class Perk extends Impl<Perk> implements Comparable<Perk>, IStringSerializable {
     protected final String name;
     protected final ResourceLocation icon;
+    protected ITextComponent translation, description;
 
     public Perk(String name, @Nullable ResourceLocation icon) {
         this.name = name;
@@ -29,19 +31,8 @@ public abstract class Perk extends Impl<Perk> implements Comparable<Perk>, IStri
         return false;
     }
 
-    public boolean isDisabled() {
-        return isDisabled(null);
-    }
-
-    @SideOnly(Side.CLIENT)
-    public abstract String getTooltip(int level, int actualLevel, int levelWithBonus);
-
     public int getCost(int level) {
         return level > 0 ? 1 : 0;
-    }
-
-    public boolean isEncrypted() {
-        return false;
     }
 
     public int getLevelBonus(EntityPlayer player) {
@@ -53,28 +44,30 @@ public abstract class Perk extends Impl<Perk> implements Comparable<Perk>, IStri
         return this.icon;
     }
 
-    public String getTranslationKey() {
-        return OWNER + ".perk." + this.name + ".name";
+    public final String getTranslationKey() {
+        return OWNER + ".perk." + this.name;
     }
 
-    @SideOnly(Side.CLIENT)
-    public String getClientTranslation() {
-        return I18n.format(getTranslationKey());
+    public final ITextComponent getTranslation() {
+        if (this.translation == null) {
+            this.translation = new TextComponentTranslation(getTranslationKey());
+        }
+        return this.translation;
     }
 
-    @SideOnly(Side.CLIENT)
-    public String getDescription() {
-        return I18n.format(OWNER + ".perk." + this.name + ".desc");
+    public ITextComponent getDescription() {
+        if (this.description == null) {
+            this.description = new TextComponentTranslation(getTranslationKey() + ".desc");
+        }
+        return this.description;
     }
 
-    @SideOnly(Side.CLIENT)
-    public String getSpecialInfo(int levelWithBonus) {
-        return "";
+    public List<ITextComponent> getCurrentBonusInfo(int level) {
+        return Collections.emptyList();
     }
 
-    @Override
-    public String toString() {
-        return this.name;
+    public List<ITextComponent> getNextBonusInfo(int nextLevel) {
+        return getCurrentBonusInfo(nextLevel);
     }
 
     @Override
