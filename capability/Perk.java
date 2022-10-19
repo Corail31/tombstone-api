@@ -56,7 +56,7 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
 
     public Component getDescription() {
         if (this.description == null) {
-            this.description = new TranslatableComponent(OWNER + ".perk." + this.name + ".desc");
+            this.description = new TranslatableComponent(getTranslationKey() + ".desc");
         }
         return this.description;
     }

@@ -22,7 +22,7 @@ public class VillageSiegeEvent extends Event {
      * Called when a siege happens in a village
      */
     @Cancelable
-    public static class Start extends VillageSiegeEvent {
+    public static final class Start extends VillageSiegeEvent {
         private final BlockPos spawnPos;
 
         public Start(ServerLevel world, BlockPos spawnPos) {
@@ -39,7 +39,7 @@ public class VillageSiegeEvent extends Event {
      * Called when a village siege happens before a zombie spawn allowing to edit it before it spawns
      */
     @Cancelable
-    public static class SpawnZombie extends VillageSiegeEvent {
+    public static final class SpawnZombie extends VillageSiegeEvent {
         private final Zombie entity;
 
         public SpawnZombie(ServerLevel world, Zombie entity) {

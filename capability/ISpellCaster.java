@@ -22,8 +22,6 @@ public interface ISpellCaster {
     @OnlyIn(Dist.CLIENT)
     void setCastingColor(int castingColor);
 
-    int getCastingTime();
-
     boolean hasSpellCooldown();
 
     void setSpellCooldown();
@@ -32,7 +30,7 @@ public interface ISpellCaster {
 
     void setSpecialTarget(@Nullable Entity specialTarget);
 
-    void tick(Mob mob);
+    void tick(Mob caster);
 
     SoundEvent getCastingSoundEvent();
 }
